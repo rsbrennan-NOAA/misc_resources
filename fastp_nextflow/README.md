@@ -2,6 +2,8 @@
 
 This script will run in parallel, submitting 25 jobs at a time.
 
+You should put the `fastp.nf` and the `nextflow.config` in your working directory. the nf file can be in scripts and you can point to it from there. It is best to have the config file where you will run things from.
+
 The fastp command in the script is:
 
 ```bash
