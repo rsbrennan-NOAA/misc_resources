@@ -19,7 +19,7 @@ params.input_dir.split(',').each { dir ->
 }
 
 process fastp {
-    debug true  // Add this line
+    debug true 
     publishDir "${params.outdir}/${dir_name}", mode: 'move', pattern: '*.clip.fastq.gz'
     tag "${dir_name}/${sample_id}"
     cpus 4
