@@ -29,6 +29,7 @@ process trimmomatic  {
 
     input:
         tuple val(dir_name), val(sample_id), path(read1), path(read2)
+        path adapter_file
 
     output:
         tuple val(dir_name), val(sample_id), 
@@ -49,7 +50,7 @@ process trimmomatic  {
         ${sample_id}_unpaired.R1.fq.gz \
         ${sample_id}_paired.R2.fq.gz \
         ${sample_id}_unpaired.R2.fq.gz \
-        ILLUMINACLIP:${params.adapter_file}:2:30:10:8:TRUE \
+        ILLUMINACLIP:${adapter_file}:2:30:10:8:TRUE \
         SLIDINGWINDOW:5:15 \
         MINLEN:40
 
@@ -57,7 +58,11 @@ process trimmomatic  {
 }
 
 workflow {
-        reads_ch = Channel
+    adapter_file = file(params.adapter_file)
+    if( !adapter_file.exists() ) {
+        error "Adapter file ${params.adapter_file} not found"
+    }
+    reads_ch = Channel
         .fromFilePairs(params.input_dir.split(',').collect { dir ->
             file(dir.trim()) + "/*_R{1,2}_001.fastq.gz"
      }, flat: true)
@@ -70,6 +75,5 @@ workflow {
         "Dir: $dir_name, Sample: $sample_id\nR1: $read1\nR2: $read2\n" 
     }
 
-    trimmomatic(reads_ch)
+    trimmomatic(reads_ch, adapter_file)
 }
-
