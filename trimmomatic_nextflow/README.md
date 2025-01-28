@@ -4,7 +4,7 @@ This script will run in parallel, submitting 20 jobs at a time, each using 8 cpu
 
 You should put the `trimmomati.nf`, `nextflow.config`, and `NexteraPE_NT.fa` in your working directory. The nf file can be in scripts and you can point to it from there. It is best to have the config file where you will run things from.
 
-The fastp command in the script is:
+The trimmomatic command in the script is:
 
 ```bash
     module load bio/trimmomatic/0.39
