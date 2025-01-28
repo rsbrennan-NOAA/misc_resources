@@ -41,7 +41,7 @@ process trimmomatic  {
     """
     module load bio/trimmomatic/0.39
 
-    java -jar ${TRIMMOMATIC} PE \
+    java -jar /opt/bioinformatics/bio/trimmomatic/trimmomatic-0.39/trimmomatic-0.39.jar PE \
         -threads ${task.cpus} \
         ${read1} \
         ${read2} \
