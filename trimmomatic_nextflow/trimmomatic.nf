@@ -45,10 +45,10 @@ process trimmomatic  {
         -threads ${task.cpus} \
         ${read1} \
         ${read2} \
-        ${sample_id}.R1.paired.fq.gz \
-        ${sample_id}.R1.unpaired.fq.gz \
-        ${sample_id}.R2.paired.fq.gz \
-        ${sample_id}.R2.unpaired.fq.gz \
+        ${sample_id}_paired.R1.fq.gz \
+        ${sample_id}_unpaired.R1.fq.gz \
+        ${sample_id}_paired.R2.fq.gz \
+        ${sample_id}_unpaired.R2.fq.gz \
         ILLUMINACLIP:${params.adapter_file}:2:30:10:8:TRUE \
         SLIDINGWINDOW:5:15 \
         MINLEN:40
@@ -72,3 +72,4 @@ workflow {
 
     trimmomatic(reads_ch)
 }
+
