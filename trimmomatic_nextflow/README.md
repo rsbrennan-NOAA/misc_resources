@@ -25,7 +25,7 @@ The trimmomatic command in the script is:
 ```
 
 
-to run, start a new screen (very important). Then run the command below:
+to run, start a new screen or tmux (very important). Then run the command below:
 
 ```bash
 mamba activate nextflow-24.04.4
@@ -48,5 +48,21 @@ where:
 Afterwards, run fastqc to make sure things ran correctly. You can track the overall progress from the screen. 
 
 
+## nf tower
 
+If you want, you can track your run with nextflow tower. To do this, make an account on [seqera](https://cloud.seqera.io/). Then generate an access token ([instructions here](https://docs.seqera.io/platform/23.1/getting-started/usage)). Add this token to the `nextflow.config` file on line 4. 
 
+Then you can run your job with the same command as above, but adding `-with-tower`. For example:
+
+```bash
+mamba activate nextflow-24.04.4
+
+nextflow run trimmomatic.nf \
+  --input_dir '241129_NOA015_PanTrop_WGS,241129_NOA016_PanTrop_WGS' \
+  --outdir trimmed_trimmomatic \
+  --adapter_file NexteraPE_NT.fa -profile trimmomatic \
+  -with-tower
+
+```
+
+And you can monitor it at https://tower.nf/ under `runs`.
