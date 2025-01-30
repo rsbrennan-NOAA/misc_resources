@@ -1,8 +1,11 @@
 # trimmomatic and nextflow
 
-This script will run in parallel, submitting 20 jobs at a time, each using 8 cpus. 
+This script will run in trimmomatic, submitting submitting 20 jobs at a time via slurm, each using 8 cpus. These can be edited in `nextflow.config`. It currently works for paired end reads. It could be modified for single end without a ton of trouble. It accepts multiple input directories and will output trimmed files, keeping directories separate.
 
 You should put the `trimmomati.nf`, `nextflow.config`, and `NexteraPE_NT.fa` in your working directory. The nf file can be in scripts and you can point to it from there. It is best to have the config file where you will run things from.
+
+**IMPORTANT**: The naming of the reads matters. They're currently set to be `SAMPLEID_R1_001.fastq.gz` and `SAMPLEID_R2_001.fastq.gz`. It will not work if there is any other structure. This could be modified in line 67 of trimmomatic.nf.
+
 
 The trimmomatic command in the script is:
 
@@ -21,11 +24,14 @@ The trimmomatic command in the script is:
         SLIDINGWINDOW:5:15 \
         MINLEN:40
 
-
 ```
 
+You can edit as you see fit, just as you would a normal shell script. Note that changing it to single end without altering the rest of the script will probably break things. You can ask me to help do this is you want.
 
-to run, start a new screen or tmux (very important). Then run the command below:
+
+## To run
+
+Assuming you're using sedna, to run, start a new screen or tmux (very important). Then run the command below:
 
 ```bash
 mamba activate nextflow-24.04.4
@@ -40,7 +46,7 @@ nextflow run trimmomatic.nf \
 Then disconnect from your screen. 
 
 where:
-- `trimmomatic.nf` is the nextflow script that runs trimmomatir.  
+- `trimmomatic.nf` is the nextflow script that runs trimmomatic.  
 - ` --input_dir '241129_NOA015_PanTrop_WGS,241129_NOA016_PanTrop_WGS'` are your input directories, comma separated.
 - `--outdir trimmed` is the output location. It will automatically make this directory and subdirectories with the same name as your input directories.
 - `-profile trimmomatic` is what is feeding the slurm option and things specific to this job. 
@@ -66,3 +72,11 @@ nextflow run trimmomatic.nf \
 ```
 
 And you can monitor it at https://tower.nf/ under `runs`.
+
+
+## other info
+
+I'm currently "moving" files from the work directory to the specified output. This is just for simplicity for new users and space saving, as we're somewhat limited. It also makes the resume option not really work. This could be changed easily so runs could be resumed if they break.
+
+Starting memory is 4gb and time is 60min... this time is likely overkill if you have small files and you can adjust in the config file. Note that if anything times out or errors due to memory (or any error actually), it will resubmit that job two more times, increasing the memory and time with each attempt, proportional to the attempt (*2 and *3).
+
