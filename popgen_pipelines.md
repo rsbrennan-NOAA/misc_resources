@@ -10,7 +10,7 @@ For lcWGS data intended for ANGSD, BAMs should be overlap-clipped (definitely) a
 
 | Pipeline | Data Type | lcWGS Suitable | Indel Realignment | Overlap Clipping | Output | Notes |
 |---|---|---|---|---|---|---|
-| [snpArcher](https://snparcher.readthedocs.io/en/latest/index.html) | High-coverage, non-model organisms | no | no | no (GATK handles internally) | BAM + VCF | GATK best practices; not ANGSD-ready |
+| [snpArcher](https://snparcher.github.io/) | High-coverage, non-model organisms | no | no | no (GATK handles internally) | BAM + VCF | GATK best practices; not ANGSD-ready |
 | [grenepipe](https://github.com/moiexpositoalonsolab/grenepipe/wiki) | General WGS | no | no | yes | VCF + BAMs | Not suitable for lcWGS to ANGSD |
 | [PopGLen](https://zjnolen.github.io/PopGLen/latest/) | lcWGS, historical DNA | yes | yes | yes (BamUtil) | ANGSD-ready BAMs | Flexible filtering |
 | [mega-non-model-wgs-snakeflow](https://github.com/eriqande/mega-non-model-wgs-snakeflow) | lcWGS | yes | yes | yes | ANGSD-ready BAMs | — |
