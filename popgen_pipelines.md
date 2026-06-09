@@ -6,8 +6,6 @@ A non-exhaustive collection of useful popgen pipelines for various data types.
 
 ## Pipelines
 
-For lcWGS data intended for ANGSD, BAMs should be overlap-clipped (definitely) and indel-realigned (preferred).
-
 | Pipeline | Data Type | lcWGS Suitable | Indel Realignment | Overlap Clipping | Output | Notes |
 |---|---|---|---|---|---|---|
 | [snpArcher](https://snparcher.github.io/) | High-coverage, non-model organisms | no | no | no (GATK handles internally) | BAM + VCF | GATK best practices; not ANGSD-ready |
@@ -32,6 +30,7 @@ For lcWGS data intended for ANGSD, BAMs should be overlap-clipped (definitely) a
     - grenepipe may offer more flexibility, can choose what method at many steps: trimming, mapping, BaseRecalibrator;
     - snpArcher uses bwamem and GATK best practices and scatter-by-intervals approach (but can choose bcftools, and others). Also some filtering options.
 - Low coverage data:
+    - For lcWGS data intended for ANGSD, BAMs should be overlap-clipped (definitely) and indel-realigned (preferred).
     - PopGLen is a good choice for lcWGS or historical DNA bc very flexible filtering and  ANGSD-ready output.
     - mega-non-model-wgs-snakeflow should work well to get angsd ready bams
     - WGSfqs-to-genolikelihoods gets angsd ready bams, but no indel realignment. Can use -baq 1 flag to to deal with indel problems [see here](https://doi.org/10.1093/bioinformatics/btr076)
