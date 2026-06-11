@@ -41,6 +41,19 @@ A non-exhaustive collection of useful popgen pipelines for various data types.
 
 ---
 
+## snpArcher details
+
+As of version 2.1
+
+Methods used:
+- Mapping: bwa mem
+- duplicate marking: sambamba
+- Outputs samtools coverage and flagstat.
+- Then into GATK. Add details later.
+
+---
+
+
 ## pixy Alternative
 
 - [clam](https://cademirch.github.io/clam/) — alternative to pixy for computing pi, dxy, and Fst
